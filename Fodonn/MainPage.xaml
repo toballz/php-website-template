@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Fodonn.MainPage" Title="" Shell.NavBarIsVisible="False">
+    <ContentView VerticalOptions="FillAndExpand">
+        <Grid VerticalOptions="FillAndExpand">
+            <Image Aspect="AspectFill" Source="backgroundj.jpg" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <Grid RowDefinitions="36,*,103" Padding="4">
+                <Grid Grid.Row="0" Background="#ff1414" Padding="5">
+                    <Label Text="Fodonn - Share" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="18" TextColor="#fff"/>
+                    <Image Source="user.png" WidthRequest="41" HorizontalOptions="End">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="GotoLogin_Clicked"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+                <ListView VerticalScrollBarVisibility="Default" x:Name="FilesndataSource"
+                  SelectionMode="None" VerticalOptions="FillAndExpand" HasUnevenRows="true" Grid.Row="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <VerticalStackLayout Padding="4,4,4,14" Margin="0,0,0,6" Background="#141c3b">
+                                    <Grid BackgroundColor="#213a72" Padding="1,2,4,2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="75"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.Shadow>
+                                            <Shadow Brush="aliceblue" Offset="5,5" Opacity="0.34" />
+                                        </Grid.Shadow>
+                                        <!--string type label-->
+                                        <Label VerticalOptions="Center" TextColor="#000" FontAttributes="Bold" Text="{Binding StrType}" FontSize="17" Margin="3,0,0,6" Grid.Column="0"/>
+                                        <HorizontalStackLayout Grid.Column="1">
+                                            <Image Source="trasha.png" HorizontalOptions="FillAndExpand" WidthRequest="31" HeightRequest="27" >
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapGestureImg_Tapped" CommandParameter="{Binding sha256hash, StringFormat='trash-{0}'}"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <Image Source="copy.png" HorizontalOptions="FillAndExpand" WidthRequest="33" HeightRequest="30">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapGestureImg_Tapped" CommandParameter="{Binding StrVal, StringFormat='copy--``0__={0}'}"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+                                    <!--string value label-->
+                                    <Label Text="{Binding StrVal}" FontSize="15" Padding="12" TextColor="FloralWhite">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnTapGestureRecognizerLabel" CommandParameter="{Binding StrType}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <StackLayout Background="GhostWhite" Padding="4" VerticalOptions="End" Grid.Row="2">
+                    <Border Stroke="#fff" StrokeThickness="1" BackgroundColor="#fff"
+                        StrokeShape="RoundRectangle 0,0,0,0" Padding="0,0" HorizontalOptions="FillAndExpand">
+                        <Grid ColumnDefinitions="*,64">
+                            <Editor CharacterSpacing="0.5" Grid.Column="0" HorizontalOptions="FillAndExpand" Placeholder="Paste Text / Link"
+                                x:Name="entryText" Text="" BackgroundColor="GhostWhite" />
+                            <VerticalStackLayout Grid.Column="1" Background="#ccc" Padding="4">
+                                <ImageButton Source="files.png"  HeightRequest="36" Padding="0" Margin="0,-1,-1,-2" Clicked="UploadFilesJust_Clicked"/>
+                                <Label Text="Files" FontSize="12" HorizontalOptions="Center" FontAttributes="Bold,Italic"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                    <Border Stroke="Blue" StrokeThickness="1" BackgroundColor="Blue"
+                        StrokeShape="RoundRectangle 0,0,0,0" Padding="0,0" HorizontalOptions="FillAndExpand">
+                        <Button Text="Submit" Clicked="UploadBtn_Clicked_Async"/>
+                    </Border>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentView>
+</ContentPage>

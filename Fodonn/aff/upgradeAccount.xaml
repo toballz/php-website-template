@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fodonn.aff.upgradeAccount"
+             Title="upgradeAccount">
+    <ScrollView>
+        <StackLayout Padding="12">
+            <Label Grid.Row="0" Text="Cancel" VerticalOptions="Start" HorizontalOptions="End" Padding="12,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="calcel_modalse_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        <VerticalStackLayout VerticalOptions="Center">
+                <Label Text="Unlock all features" FontSize="25" CharacterSpacing="2"
+                   FontAttributes="Bold" Padding="12" HorizontalOptions="Center" Margin="0,35,0,25"/>
+                <VerticalStackLayout Padding="2"  >
+                <Border Stroke="#fff" StrokeThickness="2" BackgroundColor="#fff"
+                    StrokeShape="RoundRectangle 9,9,9,9" Padding="0,0" >
+                    <ListView SeparatorVisibility="None" x:Name="goodlist" SelectionMode="None" VerticalScrollBarVisibility="Never" IsEnabled="False" VerticalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Grid ColumnDefinitions="22,*" Padding="12">
+                                            <Image Source="{Binding img}" Grid.Column="0" VerticalOptions="Center"/>
+                                            <Label Text="{Binding textmessg}" Grid.Column="1" Padding="4,0" VerticalOptions="Center"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Border>
+            </VerticalStackLayout>
+
+                <Grid Padding="4,4,4,4" ColumnDefinitions="*,*" RowDefinitions="111,111" Margin="0,32">
+                    <Grid Padding="2,2,2,2" Grid.Column="0" Grid.Row="0">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="selectPricePlan_Tapped" CommandParameter="o1"/>
+                    </Grid.GestureRecognizers>
+                        <Border Stroke="green" StrokeThickness="3" BackgroundColor="#fff"
+                    StrokeShape="RoundRectangle 9,9,9,9" Padding="0,0" x:Name="o1">
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="1" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                <Label Text="Week" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="$1.99" HorizontalOptions="Center" FontAttributes="Bold" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                    <Grid Padding="2,2,2,2" Grid.Column="1" Grid.Row="0">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="selectPricePlan_Tapped" CommandParameter="o2"/>
+                    </Grid.GestureRecognizers>
+                        <Border x:Name="o2" StrokeThickness="3" BackgroundColor="#fff"
+                    StrokeShape="RoundRectangle 9,9,9,9" Padding="0,0" >
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="1" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="Month" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="$5.99" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="$1.49 / week" HorizontalOptions="Center" TextColor="#ccc"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                    <Grid Padding="2,2,2,2" Grid.Column="0" Grid.Row="1">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="selectPricePlan_Tapped" CommandParameter="o3"/>
+                    </Grid.GestureRecognizers>
+                        <Border x:Name="o3" StrokeThickness="3" BackgroundColor="#fff"
+                    StrokeShape="RoundRectangle 9,9,9,9" Padding="0,0" >
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="1" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="Year" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="$69.99" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="$5.83 / month" HorizontalOptions="Center" TextColor="#ccc"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                    <Grid Padding="2,2,2,2" Grid.Column="1" Grid.Row="1">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="selectPricePlan_Tapped" CommandParameter="o4"/>
+                    </Grid.GestureRecognizers>
+                        <Border x:Name="o4" StrokeThickness="3" BackgroundColor="#fff"
+                    StrokeShape="RoundRectangle 9,9,9,9" Padding="0,0" >
+                            <VerticalStackLayout VerticalOptions="Center">
+                                <Label Text="1" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="Time Payment" HorizontalOptions="Center" FontAttributes="Bold" />
+                                <Label Text="$299.99" HorizontalOptions="Center" FontAttributes="Bold" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+ 
+            <Button Text="Subscribe" Padding="16"
+                        Margin="0,22,0,2" Background="#48e45a" Clicked="subscribeBuy_Clicked"/>
+                <Label Text="Cancel anytime" Margin="0,1" HorizontalOptions="Center"/>
+
+
+
+
+
+
+
+
+
+
+
+
+            </VerticalStackLayout>
+        </StackLayout>
+
+    </ScrollView>
+</ContentPage>
