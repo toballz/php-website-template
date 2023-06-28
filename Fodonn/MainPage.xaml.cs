@@ -157,9 +157,7 @@ public partial class MainPage : ContentPage
                         Updatelist_Async(sender, e);
                     }
                 }
-            }
-            else if (infoLabelStrTypeCopyTrash.Text == "copy")
-            {
+            }else if (infoLabelStrTypeCopyTrash.Text == "copy"){
                 await Clipboard.SetTextAsync(infoLabelStrVal.Text);
                 _ = DisplayAlert("", "Your text has been copied", "OK");
             }
