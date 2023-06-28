@@ -38,13 +38,7 @@ public partial class SettingsAccount : ContentPage
             xxemail.Text = tstrk.email;
         }
         }catch(Exception ex){
-            this.ShowPopup(new Popup
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children = { new Label { Padding = new Thickness(2), Text = ex.Message } }
-                }
-            });
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
     }
     private async void logoutForgotPassword_Clicked(object sender, EventArgs e)

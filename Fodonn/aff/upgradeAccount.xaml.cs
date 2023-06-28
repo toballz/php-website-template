@@ -63,15 +63,8 @@ public partial class upgradeAccount : ContentPage
                 o4.Stroke = Color.FromArgb("#48e45a");
                 paymentType = "o4";
             }
-        }catch (Exception ex)
-        {
-            this.ShowPopup(new Popup
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children = { new Label { Padding = new Thickness(2), Text = ex.Message } }
-                }
-            });
+        }catch (Exception ex){
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
     }
 
@@ -158,15 +151,8 @@ public partial class upgradeAccount : ContentPage
                 _ = DisplayAlert("Error", "There has been an error. Please contact support!", "OK");
             }
         }
-        catch (Exception ex)
-        {
-            this.ShowPopup(new Popup
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children = { new Label { Padding = new Thickness(2), Text = ex.Message } }
-                }
-            });
+        catch (Exception ex){
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
 
     }

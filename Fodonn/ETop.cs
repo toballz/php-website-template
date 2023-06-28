@@ -81,13 +81,16 @@ namespace Fodonn
             string attdx;
             try
             {
-                using HttpClient client = new();
+                using HttpClient client = new HttpClient{ Timeout = TimeSpan.FromMinutes(2) };
                 var content = new FormUrlEncodedContent(datafae);
                 var response = await client.PostAsync(url == null ? apiHttpLink : url, content);
                 attdx = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine("ErrorHttpReq: " + attdx);
+                //Debug.WriteLine("ErrorHttpReq: " + attdx);
             }
-            catch (Exception ex) { Debug.WriteLine("ErrorHttpReq: " + ex.Message); attdx = "{\"code\":600,\"message\":\"" + ex.Message + "\"}"; }
+            catch (Exception ex) {
+                Debug.WriteLine("ErrorHttpReq: " + ex.Message);
+                attdx = "{\"code\":600,\"message\":\"Check your internet connection.\"}";
+            }
             return attdx;
         }
         public static async Task SleepDelay(int numSec)

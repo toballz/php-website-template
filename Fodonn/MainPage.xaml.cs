@@ -7,6 +7,7 @@ namespace Fodonn;
 
 public partial class MainPage : ContentPage
 {
+    public string mainDomain = ETop.apiHttpLink;
     public MainPage()
     {
         InitializeComponent();
@@ -24,9 +25,7 @@ public partial class MainPage : ContentPage
     //FilesNdata 111111111111111111
     private async void Updatelist_Async(object sender, EventArgs e)
     {
-            freePopup loader = new freePopup("loader");
-            this.ShowPopup(loader);
-            await ETop.SleepDelay(1234);
+        freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(1234);
         try
         {
             string uuname = ETop.RealUsername;
@@ -56,15 +55,8 @@ public partial class MainPage : ContentPage
                 gfh.Add(new ETop.UserFilesnData { StrType = "", StrVal = "You have no data. Login / Signup to start." });
                 FilesndataSource.ItemsSource = gfh;
             }
-        }catch(Exception ex)
-        {
-            this.ShowPopup(new Popup
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children = { new Label { Padding = new Thickness(2), Text = ex.Message } }
-                }
-            });
+        }catch(Exception ex){
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
             loader.Close();
     }
@@ -119,13 +111,7 @@ public partial class MainPage : ContentPage
                 }
             }
         }catch (Exception ex) {
-            this.ShowPopup(new Popup
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children = { new Label { Padding = new Thickness(2), Text = ex.Message } }
-                }
-            });
+            freePopup errPopup = new freePopup("erroralert",ex.Message);this.ShowPopup(errPopup);
         }
     }
     private async Task ShareFile(string khj)
@@ -145,9 +131,7 @@ public partial class MainPage : ContentPage
     {
         try
         {
-            freePopup loader = new freePopup("loader");
-            this.ShowPopup(loader);
-            await ETop.SleepDelay(450);
+            freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(450);
 
             var asg = e.Parameter.ToString().Split('-');
             if (asg[0] == "trash")
@@ -176,15 +160,8 @@ public partial class MainPage : ContentPage
                 await Clipboard.SetTextAsync(substrings[1]);
             }
             loader.Close();
-        }catch (Exception ex)
-        {
-            this.ShowPopup(new Popup
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children = { new Label {Padding = new Thickness(2), Text = ex.Message } }
-                }
-            });
+        }catch (Exception ex){
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
     }
 
@@ -195,15 +172,12 @@ public partial class MainPage : ContentPage
     //Upload Files n Datas 1111111111111111111111
     private async void UploadBtn_Clicked_Async(object sender, EventArgs e)
     {
-        freePopup loader = new freePopup("loader");
-        this.ShowPopup(loader);
-        await ETop.SleepDelay(1234);
+        freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(1234);
         try
         {
             string uname = ETop.RealUsername;
             string entrytext = @entryText.Text.Trim();
 
-            Thread.Sleep(1470);
             if (uname != null){
                 if (entrytext.Length > 0){
                     Regex reg = new Regex(ETop.PregURL, RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -221,34 +195,21 @@ public partial class MainPage : ContentPage
                     {
                         entryText.Text = "";
                         Updatelist_Async(sender, e);
-                    }
-                    else if (htmlResJson.code == 404)
-                    {
+                    }else if (htmlResJson.code == 404){
                         Updatelist_Async(sender, e);
                         bool tt = await DisplayAlert("Alert", htmlResJson.message, "Upgrade", "Later");
-                        if (tt == true)
-                        {
+                        if (tt == true){
                             _ = Navigation.PushModalAsync(new upgradeAccount());
                         }
-                    }
-                    else
-                    {
+                    }else{
                         _ = DisplayAlert("", htmlResJson.message,"OK");
                     }
                 }
             } else {
                 _ = DisplayAlert("Alert", "Login to start uploading data.", "OK");
             }
-        }
-        catch (Exception ex)
-        {
-            this.ShowPopup(new Popup
-            {
-                Content = new VerticalStackLayout
-                {
-                    Children = { new Label {Padding = new Thickness(2), Text = ex.Message } }
-                }
-            });
+        }catch (Exception ex){
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
         loader.Close();
     }
@@ -268,9 +229,7 @@ public partial class MainPage : ContentPage
 
                     var result = await FilePicker.Default.PickAsync();
                     if (result != null) {
-                freePopup loader = new freePopup("loader");
-                this.ShowPopup(loader);
-                await ETop.SleepDelay(1234);
+                freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(1234);
 
                 var imageContent = new ByteArrayContent(File.ReadAllBytes(result.FullPath));
                 var assa = new ByteArrayContent(new Byte[0]);
@@ -306,9 +265,8 @@ public partial class MainPage : ContentPage
             }
 
         }catch (Exception ex){
-            this.ShowPopup(new Popup { Content = new VerticalStackLayout { Children = { new Label {Padding = new Thickness(2), Text = ex.Message } } } });
+            freePopup errPopup = new freePopup("erroralert",ex.Message);this.ShowPopup(errPopup);
         }
-
 
     }
     //Upload Files n Datas 0000000000000000000000

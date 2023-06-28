@@ -44,6 +44,7 @@
                                         </HorizontalStackLayout>
                                     </Grid>
                                     <!--string value label-->
+                                    <Label Text="{Binding mainDomain,Source=mainDomain}" FontSize="11" TextColor="red" />
                                     <Label Text="{Binding StrVal}" FontSize="15" Padding="12" TextColor="FloralWhite">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="OnTapGestureRecognizerLabel" CommandParameter="{Binding StrType}" />
@@ -55,23 +56,23 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <StackLayout Background="GhostWhite" Padding="4" VerticalOptions="End" Grid.Row="2">
-                    <Border Stroke="#fff" StrokeThickness="1" BackgroundColor="#fff"
+                <Grid RowDefinitions="56,45" Background="GhostWhite" Padding="4" VerticalOptions="End" Grid.Row="2">
+                    <Border Grid.Row="0" Stroke="#fff" StrokeThickness="1" BackgroundColor="#fff"
                         StrokeShape="RoundRectangle 0,0,0,0" Padding="0,0" HorizontalOptions="FillAndExpand">
                         <Grid ColumnDefinitions="*,64">
                             <Editor CharacterSpacing="0.5" Grid.Column="0" HorizontalOptions="FillAndExpand" Placeholder="Paste Text / Link"
                                 x:Name="entryText" Text="" BackgroundColor="GhostWhite" />
                             <VerticalStackLayout Grid.Column="1" Background="#ccc" Padding="4">
-                                <ImageButton Source="files.png"  HeightRequest="36" Padding="0" Margin="0,-1,-1,-2" Clicked="UploadFilesJust_Clicked"/>
-                                <Label Text="Files" FontSize="12" HorizontalOptions="Center" FontAttributes="Bold,Italic"/>
+                                <ImageButton Source="files.png"  HeightRequest="31" Padding="0" Clicked="UploadFilesJust_Clicked"/>
+                                <Label Text="Files" FontSize="10" HorizontalOptions="Center" FontAttributes="Bold,Italic"/>
                             </VerticalStackLayout>
                         </Grid>
                     </Border>
-                    <Border Stroke="Blue" StrokeThickness="1" BackgroundColor="Blue"
+                    <Border Grid.Row="1" Stroke="Blue" StrokeThickness="1" BackgroundColor="Blue"
                         StrokeShape="RoundRectangle 0,0,0,0" Padding="0,0" HorizontalOptions="FillAndExpand">
                         <Button Text="Submit" Clicked="UploadBtn_Clicked_Async"/>
                     </Border>
-                </StackLayout>
+                </Grid>
             </Grid>
         </Grid>
     </ContentView>
