@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="Fodonn.MainPage" Title="" Shell.NavBarIsVisible="False">
+             x:Class="Fodonn.MainPage" Title="" Shell.NavBarIsVisible="False" x:Name="MainPagex">
     <ContentView VerticalOptions="FillAndExpand">
         <Grid VerticalOptions="FillAndExpand">
             <Image Aspect="AspectFill" Source="backgroundj.jpg" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
@@ -31,25 +31,57 @@
                                         <!--string type label-->
                                         <Label VerticalOptions="Center" TextColor="#000" FontAttributes="Bold" Text="{Binding StrType}" FontSize="17" Margin="3,0,0,6" Grid.Column="0"/>
                                         <HorizontalStackLayout Grid.Column="1">
-                                            <Image Source="trasha.png" HorizontalOptions="FillAndExpand" WidthRequest="31" HeightRequest="27" >
-                                                <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="TapGestureImg_Tapped" CommandParameter="{Binding sha256hash, StringFormat='trash-{0}'}"/>
-                                                </Image.GestureRecognizers>
-                                            </Image>
-                                            <Image Source="copy.png" HorizontalOptions="FillAndExpand" WidthRequest="33" HeightRequest="30">
-                                                <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="TapGestureImg_Tapped" CommandParameter="{Binding StrVal, StringFormat='copy--``0__={0}'}"/>
-                                                </Image.GestureRecognizers>
-                                            </Image>
+                                            <VerticalStackLayout>
+                                                <VerticalStackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapDeleteCopy_Tapped"/>
+                                                </VerticalStackLayout.GestureRecognizers>
+                                                <!-- {[this grid should be the first grid in town]}
+                                                    strType/trash
+                                                    strVal
+                                                    hashed
+                                                -->
+                                                <Grid IsVisible="false">
+                                                    <Label Text="trash"/>
+                                                    <Label Text=""/>
+                                                    <Label Text="{Binding sha256hash}"/>
+                                                </Grid><Image Source="trasha.png" HorizontalOptions="FillAndExpand" WidthRequest="31" HeightRequest="27"/>
+                                            </VerticalStackLayout>
+                                            <VerticalStackLayout>
+                                                <VerticalStackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapDeleteCopy_Tapped"/>
+                                                </VerticalStackLayout.GestureRecognizers>
+                                                <!-- {[this grid should be the first grid in town]}
+                                                    strType/copy
+                                                    strVal
+                                                -->
+                                                <Grid IsVisible="false">
+                                                    <Label Text="copy"/>
+                                                    <Label Text="{Binding StrVal}"/>
+                                                    <Label Text=""/>
+                                                </Grid>
+                                                <Image Source="copy.png" HorizontalOptions="FillAndExpand" WidthRequest="33" HeightRequest="30"/>
+                                            </VerticalStackLayout>
                                         </HorizontalStackLayout>
                                     </Grid>
                                     <!--string value label-->
-                                    <Label Text="{Binding mainDomain,Source=mainDomain}" FontSize="11" TextColor="red" />
-                                    <Label Text="{Binding StrVal}" FontSize="15" Padding="12" TextColor="FloralWhite">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="OnTapGestureRecognizerLabel" CommandParameter="{Binding StrType}" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
+
+                                    <!-- x:Name="imageNlabelTaped" -->
+                                    <VerticalStackLayout>
+                                        <VerticalStackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnTap_imageNlabelTaped"/>
+                                        </VerticalStackLayout.GestureRecognizers>
+
+                                        <!-- {[this grid should be the first grid in town]}
+                                            strType
+                                            strVal
+                                        -->
+                                        <Grid IsVisible="false">
+                                            <Label Text="{Binding StrType}"/>
+                                            <Label Text="{Binding StrVal}"/>
+                                        </Grid>
+                                        <Image Source="{Binding StrVal, StringFormat='https://Fodonn.com/catch/{0}'}" />
+                                        <Label Text="{Binding StrVal}" FontSize="15" Padding="12" TextColor="FloralWhite"/>
+                                    </VerticalStackLayout>
                                 </VerticalStackLayout>
                             </ViewCell>
                         </DataTemplate>

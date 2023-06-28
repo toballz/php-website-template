@@ -60,42 +60,42 @@ public partial class MainPage : ContentPage
         }
             loader.Close();
     }
-    private async void OnTapGestureRecognizerLabel(object sender, TappedEventArgs e)
+    private async void OnTap_imageNlabelTaped(object sender, TappedEventArgs e)
     {
         try
         {
-            var LabelSender = (Label)sender;
-            if (e.Parameter.ToString() == "Link")
-            {
-                _ = Launcher.OpenAsync(LabelSender.Text);
+            var LabelSender = (VerticalStackLayout)sender;
+            var thisClickChildrensGridGetTypeInfo = LabelSender.Children.OfType<Grid>().ElementAt(0);
+            var thisClickChildrensGridGetTypeInfoLabel = thisClickChildrensGridGetTypeInfo.Children.OfType<Label>();
+            var infoLabelStrType=thisClickChildrensGridGetTypeInfoLabel.ElementAt(0);
+            var infoLabelStrVal= thisClickChildrensGridGetTypeInfoLabel.ElementAt(1);
+            if (infoLabelStrType.Text == "Link"){
+                _ = Launcher.OpenAsync(infoLabelStrVal.Text);
             }
-            else if (e.Parameter.ToString() == "Text")
+            else if (infoLabelStrType.Text == "Text")
             {
                 if (ETop.RealUsername != null)
                 {
-                    await Clipboard.SetTextAsync(LabelSender.Text);
+                    await Clipboard.SetTextAsync(infoLabelStrVal.Text);
                     _ = DisplayAlert("Alert", "Your text has been copied!", "OK");
                 }
             }
-            else if (e.Parameter.ToString() == "File")
+            else if (infoLabelStrType.Text == "File")
             {
                 var ddato = await DisplayAlert("Alert", "Download your file?", "Download", "Cancel");
                 if (ddato == true)
                 {
-
 #if ANDROID
                     var FileLocationDownloads = Path.Combine( Android.OS.Environment.ExternalStorageDirectory.AbsolutePath,
                         Android.OS.Environment.DirectoryDownloads,
-                        LabelSender.Text); 
+                        infoLabelStrVal.Text); 
 #else
-                    var FileLocationDownloads = Path.Combine(FileSystem.Current.AppDataDirectory, LabelSender.Text);
+                    var FileLocationDownloads = Path.Combine(FileSystem.Current.AppDataDirectory, infoLabelStrVal.Text);
 #endif
-                    //_ = DisplayAlert("etr", FileLocationDownloads, "etr");return;
-                    //_ = ShareFile(FileLocationDownloads); return;
                     if (!File.Exists(FileLocationDownloads))
                     {
                         var httpClient = new HttpClient();
-                        using (var stream = await httpClient.GetStreamAsync(ETop.apiHttpLinkDomain + "catch/" + LabelSender.Text))
+                        using (var stream = await httpClient.GetStreamAsync(ETop.apiHttpLinkDomain + "catch/" +infoLabelStrVal.Text))
                         {
                             using (var fileStream = new FileStream(FileLocationDownloads, FileMode.CreateNew))
                             {
@@ -127,42 +127,46 @@ public partial class MainPage : ContentPage
         });
     }
 
-    private async void TapGestureImg_Tapped(object sender, TappedEventArgs e)
+    private async void TapDeleteCopy_Tapped(object sender, TappedEventArgs e)
     {
+        freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(450);
         try
         {
-            freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(450);
+            //var asg = e.Parameter.ToString().Split('-');
 
-            var asg = e.Parameter.ToString().Split('-');
-            if (asg[0] == "trash")
+            var LabelSender = (VerticalStackLayout)sender;
+            var thisClickChildrensGridGetTypeInfo = LabelSender.Children.OfType<Grid>().ElementAt(0);
+            var thisClickChildrensGridGetTypeInfoLabel = thisClickChildrensGridGetTypeInfo.Children.OfType<Label>();
+            
+            var infoLabelStrTypeCopyTrash = thisClickChildrensGridGetTypeInfoLabel.ElementAt(0);
+            var infoLabelStrVal = thisClickChildrensGridGetTypeInfoLabel.ElementAt(1);
+            var infoLabelStrHash = thisClickChildrensGridGetTypeInfoLabel.ElementAt(2);
+            if (infoLabelStrTypeCopyTrash.Text == "trash")
             {
-                if (asg[1].Length > 3)
+                if (infoLabelStrHash.Text.Length > 3)
                 {
                     string uuname = ETop.RealUsername;
                     var httpResponse = await ETop.HttpConntAsync(new Dictionary<string, string> {
                     { "uname", uuname},
-                    {"deleteHash",asg[1] },
+                    {"deleteHash",infoLabelStrHash.Text},
                     {"api","rats" },
                     {"t","deleteData" }
                 });
-
                     ETop.ApiResponse htmlResJson = JsonConvert.DeserializeObject<ETop.ApiResponse>(httpResponse);
-                    if (htmlResJson.code == 200)
-                    {
+                    if (htmlResJson.code == 200){
                         Updatelist_Async(sender, e);
                     }
                 }
             }
-            else if (asg[0] == "copy")
+            else if (infoLabelStrTypeCopyTrash.Text == "copy")
             {
-                Regex regex = new Regex("--``0__=");
-                string[] substrings = regex.Split(e.Parameter.ToString());
-                await Clipboard.SetTextAsync(substrings[1]);
+                await Clipboard.SetTextAsync(infoLabelStrVal.Text);
+                _ = DisplayAlert("", "Your text has been copied", "OK");
             }
-            loader.Close();
         }catch (Exception ex){
             freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
+        loader.Close();
     }
 
     //FilesNdata 000000000000000000
