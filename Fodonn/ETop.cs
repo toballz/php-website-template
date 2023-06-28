@@ -79,8 +79,7 @@ namespace Fodonn
         public static async Task<string> HttpConntAsync(Dictionary<string, string> datafae, string url = null)
         {
             string attdx;
-            try
-            {
+            try{
                 using HttpClient client = new HttpClient{ Timeout = TimeSpan.FromMinutes(2) };
                 var content = new FormUrlEncodedContent(datafae);
                 var response = await client.PostAsync(url == null ? apiHttpLink : url, content);
