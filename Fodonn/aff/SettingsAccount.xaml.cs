@@ -86,11 +86,11 @@ public partial class SettingsAccount : ContentPage
         if (fname.Length > 5 && ETop.PregEmail.Match(email).Success && phone.Length > 5 && message.Length > 5)
         {
             var httpResponse = await ETop.HttpConntAsync(new Dictionary<string, string> {
-                    {"email",xxemail.Text},
-                    {"t","contact:businessEmail"},
+                    {"email",xxemail.Text},{"t","contact:businessEmail"},
                     {"api","rats"},
-                    {"uname",ETop.RealUsername}
-                });
+                    {"fname",fname },{"vemail",email },
+                    {"bphone",phone },{"rmessage",message },
+            });
             var htmlResJson = JsonConvert.DeserializeObject<ETop.ApiResponse>(httpResponse);
             if (htmlResJson.code == 200)
             {
