@@ -21,11 +21,11 @@
                     
                     <VerticalStackLayout x:Name="ContactAcgh" IsVisible="false">
                         <Label Text="CONTACT US" CharacterSpacing="2" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
-                        <Entry Placeholder="Full Name" FontSize="16" HorizontalOptions="FillAndExpand" x:Name="contactv_fname"/>
-                        <Entry Placeholder="Email" FontSize="16" HorizontalOptions="FillAndExpand" x:Name="contactv_email"/>
-                        <Entry Placeholder="Phone" FontSize="16" HorizontalOptions="FillAndExpand" x:Name="contactv_phone"/>
-                        <Editor Placeholder="Message" FontSize="16" HorizontalOptions="FillAndExpand" HeightRequest="200" x:Name="contactv_message"/>
-                        <Button Text="Submit" FontSize="16" HorizontalOptions="FillAndExpand" Clicked="ContactR_Us_2ruEmailClicked"/>
+                        <Entry Placeholder="Full Name" FontSize="19" HorizontalOptions="FillAndExpand" x:Name="contactv_fname"/>
+                        <Entry Placeholder="Email" FontSize="19" HorizontalOptions="FillAndExpand" x:Name="contactv_email"/>
+                        <Entry Placeholder="Phone" FontSize="19" HorizontalOptions="FillAndExpand" x:Name="contactv_phone"/>
+                        <Editor Placeholder="Message" FontSize="19" HorizontalOptions="FillAndExpand" HeightRequest="200" x:Name="contactv_message"/>
+                        <Button Text="Submit" FontSize="19" HorizontalOptions="FillAndExpand" Clicked="ContactR_Us_2ruEmailClicked"/>
                     </VerticalStackLayout>
                     <VerticalStackLayout x:Name="PersonalInfoAcgh" IsVisible="false" Padding="1">
                         <Image Source="usericons.png" WidthRequest="120" >
@@ -36,12 +36,12 @@
                                 <TapGestureRecognizer Tapped="upgradetopremium_Tapped"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <Entry Text="" Placeholder="Username" x:Name="xxusername" IsEnabled="False"/>
-                        <Entry Text="" Placeholder="Email" x:Name="xxemail"/>
-                        <Button Margin="0,12" Text="Update Info" Clicked="UpdateEmailNInfo_clicked"/>
+                        <Entry Text="" FontSize="19" Placeholder="Username" x:Name="xxusername" IsEnabled="False"/>
+                        <Entry Text="" FontSize="19" Placeholder="Email" x:Name="xxemail"/>
+                        <Button FontSize="19" Margin="0,12" Text="Update Info" Clicked="UpdateEmailNInfo_clicked"/>
 
-                        <Label Margin="8,56,0,6" Text="You will be logged out to use the forgot password tool!"/>
-                        <Button Text="Change password" Clicked="logoutForgotPassword_Clicked"/>
+                        <Label FontSize="19" Margin="8,56,0,6" Text="You will be logged out to use the forgot password tool!"/>
+                        <Button FontSize="19" Text="Change password" Clicked="logoutForgotPassword_Clicked"/>
                     </VerticalStackLayout>
 
                 </VerticalStackLayout>

@@ -15,9 +15,9 @@ public partial class MainPage : ContentPage
         var username = ETop.RealUsername;
         Loaded += (s, e) => {
             Updatelist_Async(s, e);
-            if (username == null){
+            if (username == null) {
                 var y = new TappedEventArgs(e);
-                GotoLogin_Clicked(s,y);
+                GotoLogin_Clicked(s, y);
             }
         };
     }
@@ -25,7 +25,7 @@ public partial class MainPage : ContentPage
     //FilesNdata 111111111111111111
     private async void Updatelist_Async(object sender, EventArgs e)
     {
-        freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(1234);
+        freePopup loader = new freePopup("loader"); this.ShowPopup(loader); await ETop.SleepDelay(1234);
         try
         {
             string uuname = ETop.RealUsername;
@@ -55,10 +55,10 @@ public partial class MainPage : ContentPage
                 gfh.Add(new ETop.UserFilesnData { StrType = "", StrVal = "You have no data. Login / Signup to start." });
                 FilesndataSource.ItemsSource = gfh;
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
-            loader.Close();
+        loader.Close();
     }
     private async void OnTap_imageNlabelTaped(object sender, TappedEventArgs e)
     {
@@ -67,9 +67,9 @@ public partial class MainPage : ContentPage
             var LabelSender = (VerticalStackLayout)sender;
             var thisClickChildrensGridGetTypeInfo = LabelSender.Children.OfType<Grid>().ElementAt(0);
             var thisClickChildrensGridGetTypeInfoLabel = thisClickChildrensGridGetTypeInfo.Children.OfType<Label>();
-            var infoLabelStrType=thisClickChildrensGridGetTypeInfoLabel.ElementAt(0);
-            var infoLabelStrVal= thisClickChildrensGridGetTypeInfoLabel.ElementAt(1);
-            if (infoLabelStrType.Text == "Link"){
+            var infoLabelStrType = thisClickChildrensGridGetTypeInfoLabel.ElementAt(0);
+            var infoLabelStrVal = thisClickChildrensGridGetTypeInfoLabel.ElementAt(1);
+            if (infoLabelStrType.Text == "Link") {
                 _ = Launcher.OpenAsync(infoLabelStrVal.Text);
             }
             else if (infoLabelStrType.Text == "Text")
@@ -95,7 +95,7 @@ public partial class MainPage : ContentPage
                     if (!File.Exists(FileLocationDownloads))
                     {
                         var httpClient = new HttpClient();
-                        using (var stream = await httpClient.GetStreamAsync(ETop.apiHttpLinkDomain + "catch/" +infoLabelStrVal.Text))
+                        using (var stream = await httpClient.GetStreamAsync(ETop.apiHttpLinkDomain + "catch/" + infoLabelStrVal.Text))
                         {
                             using (var fileStream = new FileStream(FileLocationDownloads, FileMode.CreateNew))
                             {
@@ -107,11 +107,11 @@ public partial class MainPage : ContentPage
                                 }
                             }
                         }
-                    }else { _ = Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(FileLocationDownloads) }); }
+                    } else { _ = Launcher.OpenAsync(new OpenFileRequest { File = new ReadOnlyFile(FileLocationDownloads) }); }
                 }
             }
-        }catch (Exception ex) {
-            freePopup errPopup = new freePopup("erroralert",ex.Message);this.ShowPopup(errPopup);
+        } catch (Exception ex) {
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
     }
     private async Task ShareFile(string khj)
@@ -129,7 +129,7 @@ public partial class MainPage : ContentPage
 
     private async void TapDeleteCopy_Tapped(object sender, TappedEventArgs e)
     {
-        freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(450);
+        freePopup loader = new freePopup("loader"); this.ShowPopup(loader); await ETop.SleepDelay(450);
         try
         {
             //var asg = e.Parameter.ToString().Split('-');
@@ -137,7 +137,7 @@ public partial class MainPage : ContentPage
             var LabelSender = (VerticalStackLayout)sender;
             var thisClickChildrensGridGetTypeInfo = LabelSender.Children.OfType<Grid>().ElementAt(0);
             var thisClickChildrensGridGetTypeInfoLabel = thisClickChildrensGridGetTypeInfo.Children.OfType<Label>();
-            
+
             var infoLabelStrTypeCopyTrash = thisClickChildrensGridGetTypeInfoLabel.ElementAt(0);
             var infoLabelStrVal = thisClickChildrensGridGetTypeInfoLabel.ElementAt(1);
             var infoLabelStrHash = thisClickChildrensGridGetTypeInfoLabel.ElementAt(2);
@@ -153,15 +153,15 @@ public partial class MainPage : ContentPage
                     {"t","deleteData" }
                 });
                     ETop.ApiResponse htmlResJson = JsonConvert.DeserializeObject<ETop.ApiResponse>(httpResponse);
-                    if (htmlResJson.code == 200){
+                    if (htmlResJson.code == 200) {
                         Updatelist_Async(sender, e);
                     }
                 }
-            }else if (infoLabelStrTypeCopyTrash.Text == "copy"){
+            } else if (infoLabelStrTypeCopyTrash.Text == "copy") {
                 await Clipboard.SetTextAsync(infoLabelStrVal.Text);
                 _ = DisplayAlert("", "Your text has been copied", "OK");
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
         loader.Close();
@@ -174,14 +174,14 @@ public partial class MainPage : ContentPage
     //Upload Files n Datas 1111111111111111111111
     private async void UploadBtn_Clicked_Async(object sender, EventArgs e)
     {
-        freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(1234);
+        freePopup loader = new freePopup("loader"); this.ShowPopup(loader); await ETop.SleepDelay(1234);
         try
         {
             string uname = ETop.RealUsername;
             string entrytext = @entryText.Text.Trim();
 
-            if (uname != null){
-                if (entrytext.Length > 0){
+            if (uname != null) {
+                if (entrytext.Length > 0) {
                     Regex reg = new Regex(ETop.PregURL, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                     string strtype = (reg.IsMatch(entrytext) ? "Link" : "Text");
 
@@ -197,20 +197,20 @@ public partial class MainPage : ContentPage
                     {
                         entryText.Text = "";
                         Updatelist_Async(sender, e);
-                    }else if (htmlResJson.code == 404){
+                    } else if (htmlResJson.code == 404) {
                         Updatelist_Async(sender, e);
                         bool tt = await DisplayAlert("Alert", htmlResJson.message, "Upgrade", "Later");
-                        if (tt == true){
+                        if (tt == true) {
                             _ = Navigation.PushModalAsync(new upgradeAccount());
                         }
-                    }else{
-                        _ = DisplayAlert("", htmlResJson.message,"OK");
+                    } else {
+                        _ = DisplayAlert("", htmlResJson.message, "OK");
                     }
                 }
             } else {
                 _ = DisplayAlert("Alert", "Login to start uploading data.", "OK");
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
         loader.Close();
@@ -225,49 +225,49 @@ public partial class MainPage : ContentPage
                     {"api","rats" }
                 });
             var getinfoexceptdatashtmlResJson = JsonConvert.DeserializeObject<ETop.ApiResponse>(getinfoexceptdatashttpResponse);
-            if (getinfoexceptdatashtmlResJson.code == 200){
+            if (getinfoexceptdatashtmlResJson.code == 200) {
                 var tstrk = JsonConvert.DeserializeObject<ETop.userEmailnPremium>(getinfoexceptdatashtmlResJson.message);
-                if (tstrk.premiunm == 1) {   
+                if (tstrk.premiunm == 1) {
 
                     var result = await FilePicker.Default.PickAsync();
                     if (result != null) {
-                freePopup loader = new freePopup("loader");this.ShowPopup(loader);await ETop.SleepDelay(1234);
+                        freePopup loader = new freePopup("loader"); this.ShowPopup(loader); await ETop.SleepDelay(1234);
 
-                var imageContent = new ByteArrayContent(File.ReadAllBytes(result.FullPath));
-                var assa = new ByteArrayContent(new Byte[0]);
-                var requestContent = new MultipartFormDataContent{
+                        var imageContent = new ByteArrayContent(File.ReadAllBytes(result.FullPath));
+                        var assa = new ByteArrayContent(new Byte[0]);
+                        var requestContent = new MultipartFormDataContent{
                     { assa, "t", "upload:filE;;"+ETop.RealUsername },
                     {imageContent, "flieContent", result.FileName}
                 };
 
-                using HttpClient client = new();
-                var htmlRes = await client.PostAsync(ETop.apiHttpLink, requestContent);
+                        using HttpClient client = new();
+                        var htmlRes = await client.PostAsync(ETop.apiHttpLink, requestContent);
 
-                var htmlResJson = JsonConvert.DeserializeObject<ETop.ApiResponse>(htmlRes.Content.ReadAsStringAsync().Result);
-                client.Dispose();
-                entryText.Text = "";
-                if (htmlResJson.code == 200)
-                {
-                    await DisplayAlert("Alert", htmlResJson.message, "OK");
-                    Updatelist_Async(sender, e);
-                }
-                else
-                {
-                    await DisplayAlert("", htmlResJson.message, "OK");
-                }
-                loader.Close();
-            }
+                        var htmlResJson = JsonConvert.DeserializeObject<ETop.ApiResponse>(htmlRes.Content.ReadAsStringAsync().Result);
+                        client.Dispose();
+                        entryText.Text = "";
+                        if (htmlResJson.code == 200)
+                        {
+                            await DisplayAlert("Alert", htmlResJson.message, "OK");
+                            Updatelist_Async(sender, e);
+                        }
+                        else
+                        {
+                            await DisplayAlert("", htmlResJson.message, "OK");
+                        }
+                        loader.Close();
+                    }
 
-                }else{var tf =await DisplayAlert("","Please upgrade to premium to send files.","Upgrade","Cancel");
-                    if (tf == true){
+                } else { var tf = await DisplayAlert("", "Please upgrade to premium to send files.", "Upgrade", "Cancel");
+                    if (tf == true) {
                         _ = Navigation.PushModalAsync(new upgradeAccount());
                     }
                 }
 
             }
 
-        }catch (Exception ex){
-            freePopup errPopup = new freePopup("erroralert",ex.Message);this.ShowPopup(errPopup);
+        } catch (Exception ex) {
+            freePopup errPopup = new freePopup("erroralert", ex.Message); this.ShowPopup(errPopup);
         }
 
     }
@@ -280,5 +280,11 @@ public partial class MainPage : ContentPage
         await Navigation.PushAsync(new Loginsignup());
     }
     //goto ologin 0000000000000000000000
+    //reload 1111111111111111111
+    public async void ReloadClick_Tap(object s, TappedEventArgs e)
+    {
+        Updatelist_Async(s,e);
+    }
+    //reload 0000000000000000000000
 }
 

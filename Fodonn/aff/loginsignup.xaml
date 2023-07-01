@@ -8,11 +8,11 @@
             <Grid>
                 <Image Aspect="AspectFill" Source="backgroundj.jpg" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
 
-                <Grid RowDefinitions="36,*" Padding="5">
+                <Grid RowDefinitions="41,*">
 
-                    <Grid Grid.Row="0" Background="#ff1414" Padding="5">
+                    <Grid Grid.Row="0" Background="#ff1414" Padding="15,5" x:Name="headerxxc">
                         <Label Text="Fodonn - Share" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="18" TextColor="#fff"/>
-                        <Image Source="home.png" WidthRequest="41" HorizontalOptions="End">
+                        <Image Source="home.png"   HorizontalOptions="End">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="GotoHome_Clicked"/>
                             </Image.GestureRecognizers>
@@ -100,9 +100,9 @@
                                                 <Grid.GestureRecognizers>
                                                     <TapGestureRecognizer Tapped="accountAcordion_Clicked" CommandParameter="{Binding LeveName}"/>
                                                 </Grid.GestureRecognizers>
-                                                 <HorizontalStackLayout Padding="12" Grid.Column="0" HorizontalOptions="Start">
-                                                    <Image Source="{Binding LeveIcon}"   WidthRequest="24" VerticalOptions="Center" HorizontalOptions="Start"/>
-                                                    <Label Text="{Binding LeveName}"  Padding="4,0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                                 <HorizontalStackLayout Padding="2" Grid.Column="0" HorizontalOptions="Start">
+                                                    <Image Source="{Binding LeveIcon}" WidthRequest="38" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                                    <Label Text="{Binding LeveName}" Padding="4,0" Margin="15,0" VerticalOptions="Center" HorizontalOptions="Start" FontAttributes="Bold" FontSize="16"/>
                                                 </HorizontalStackLayout>                     
                                                 <Image Source="rightangle.svg" Grid.Column="1" HorizontalOptions="End" />
 

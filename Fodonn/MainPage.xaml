@@ -5,10 +5,15 @@
     <ContentView VerticalOptions="FillAndExpand">
         <Grid VerticalOptions="FillAndExpand">
             <Image Aspect="AspectFill" Source="backgroundj.jpg" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
-            <Grid RowDefinitions="36,*,103" Padding="4">
-                <Grid Grid.Row="0" Background="#ff1414" Padding="5">
+            <Grid RowDefinitions="41,*,103">
+                <Grid Grid.Row="0" Background="#ff1414" x:Name="headerxc">
                     <Label Text="Fodonn - Share" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" FontSize="18" TextColor="#fff"/>
-                    <Image Source="user.png" WidthRequest="41" HorizontalOptions="End">
+                    <Image Source="reload.png" WidthRequest="28" Margin="0,0,45,0" HorizontalOptions="End">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ReloadClick_Tap"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="user.png" WidthRequest="30" Margin="13,0,10,0"  HorizontalOptions="End">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Tapped="GotoLogin_Clicked"/>
                         </Image.GestureRecognizers>
@@ -19,8 +24,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <VerticalStackLayout Padding="4,4,4,14" Margin="0,0,0,6" Background="#141c3b">
-                                    <Grid BackgroundColor="#213a72" Padding="1,2,4,2">
+                                <VerticalStackLayout Padding="4,6,4,14" Margin="0,0,0,4" Background="#141c3b">
+                                    <Grid BackgroundColor="#213a72" Padding="11,3,10,3">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="75"/>
@@ -29,7 +34,7 @@
                                             <Shadow Brush="aliceblue" Offset="5,5" Opacity="0.34" />
                                         </Grid.Shadow>
                                         <!--string type label-->
-                                        <Label VerticalOptions="Center" TextColor="#000" FontAttributes="Bold" Text="{Binding StrType}" FontSize="17" Margin="3,0,0,6" Grid.Column="0"/>
+                                        <Label VerticalOptions="Center" TextColor="#fff" FontAttributes="Bold" Text="{Binding StrType}" FontSize="21" Margin="3,0,0,6" Grid.Column="0"/>
                                         <HorizontalStackLayout Grid.Column="1">
                                             <VerticalStackLayout>
                                                 <VerticalStackLayout.GestureRecognizers>
@@ -44,7 +49,7 @@
                                                     <Label Text="trash"/>
                                                     <Label Text=""/>
                                                     <Label Text="{Binding sha256hash}"/>
-                                                </Grid><Image Source="trasha.png" HorizontalOptions="FillAndExpand" WidthRequest="31" HeightRequest="27"/>
+                                                </Grid><Image Source="trasha.png" HorizontalOptions="FillAndExpand" WidthRequest="38"/>
                                             </VerticalStackLayout>
                                             <VerticalStackLayout>
                                                 <VerticalStackLayout.GestureRecognizers>
@@ -59,7 +64,7 @@
                                                     <Label Text="{Binding StrVal}"/>
                                                     <Label Text=""/>
                                                 </Grid>
-                                                <Image Source="copy.png" HorizontalOptions="FillAndExpand" WidthRequest="33" HeightRequest="30"/>
+                                                <Image Source="copy.png" HorizontalOptions="FillAndExpand" WidthRequest="38"/>
                                             </VerticalStackLayout>
                                         </HorizontalStackLayout>
                                     </Grid>
@@ -79,8 +84,11 @@
                                             <Label Text="{Binding StrType}"/>
                                             <Label Text="{Binding StrVal}"/>
                                         </Grid>
-                                        <Image Source="{Binding StrVal, StringFormat='https://Fodonn.com/catch/{0}'}" />
-                                        <Label Text="{Binding StrVal}" FontSize="15" Padding="12" TextColor="FloralWhite"/>
+                                        <Grid Padding="0,10,0,0">
+                                            <Image Source="{Binding StrVal, StringFormat='https://Fodonn.com/catch/{0}'}"
+                                               Aspect="Fill" WidthRequest="380" HorizontalOptions="FillAndExpand"/>
+                                        </Grid>
+                                        <Label Text="{Binding StrVal}" FontSize="16" Padding="12" TextColor="FloralWhite"/>
                                     </VerticalStackLayout>
                                 </VerticalStackLayout>
                             </ViewCell>
