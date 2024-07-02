@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400&display=swap');
+*,:after,:before{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:'Comfortaa' ;position:relative;font-size:14.99px; }
+img{width:100%;vertical-align:middle} form{width:100%;height:100%} a{text-decoration:none;display:block} button{cursor:pointer;outline:0} select{border:1px solid #ccc;cursor:pointer;-moz-appearance:none;-webkit-appearance:none;} h1,h2,h3,h4,h5,li,ul,ol{list-style-type:none;margin:0;padding:0}
+
+/* Define*/
+:root {
+  --bg-color: #15194b;  
+  --info-error: #dd1d1d;
+  --info-success: #38f227;
+  --info-warning: #ebe644;
+  --info-info: #e5e5e5;
+} 
+.hr{border-bottom:1px solid #000;width:100%;}
+/* END Define*/
+
+
+
+
+.main_container{width: 100%;max-width: 1400px;margin: auto;padding: 12px;}
+
+
