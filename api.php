@@ -18,6 +18,11 @@ class h {
         $sam="gyuf\u1240,@.";
         return md5(base64_encode($v.$sam));
     }
+    static function   generateAlphanumeric($length) {
+        $characters = '0123456789abc1def2gh3ijkl4mno5pqrs6tuvw7xy8z';
+        $randomString = substr(str_shuffle(str_repeat($characters, 5)), 8, $length); // Repeat to ensure enough characters
+        return $randomString;
+    }
 }
 
 // Default response
@@ -50,9 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 if ($good2go) {
     // Check for the 'action' key and process it if it exists
     if ($pI[$namer->action] === $namer->getLogin) {
-
-
-        $email = isset($pI['login_email']) ? db::real_escape_string(h::decodeStr($pI['login_email'])) : '';
+        $email = isset($pI['login_email']) ? trim(db::real_escape_string(h::decodeStr($pI['login_email']))) : '';
         $password = isset($pI['login_password']) ? h::passwordHash(h::decodeStr($pI['login_password'])) : rand();
  
         $user_stmt=db::stmt("SELECT * FROM `users` WHERE `user_email` = '$email' AND `user_password` = '$password'");
@@ -61,24 +64,27 @@ if ($good2go) {
         {
             $user_fetch_assoc=mysqli_fetch_assoc($user_stmt);
             $response['code'] = 200;
-            $response['message'] = array("user_id"=>$user_fetch_assoc['user_id']);     
+            $response['message']=1;
+            $response["user_id"] = $user_fetch_assoc['user_id'] ;     
         }else{
             $response['code'] = 404;
-            $response['message'] =  "Incorrect user name or Password.".$password;   
+            $response['message'] =  "Incorrect user name or Password.";   
         }
     }
     else if($pI[$namer->action] === $namer->getSignup){
-        $email = isset($pI['email']) ? db::real_escape_string(h::decodeStr($pI['email'])) : '';
+        $uid= h::generateAlphanumeric(20);
+        $email = isset($pI['email']) ? trim(db::real_escape_string(h::decodeStr($pI['email']))) : '';
         $password = isset($pI['password']) ? h::passwordHash(h::decodeStr($pI['password'])) : rand();
-        $fullname = isset($pI['fullname']) ? db::real_escape_string(h::decodeStr($pI['fullname'])) : ''; 
+        $fullname = isset($pI['fullname']) ? trim(db::real_escape_string(h::decodeStr($pI['fullname']))) : ''; 
 
         if(db::stmt("INSERT INTO `users` 
                 (`user_id`, `user_fullname`, `user_email`, `user_password`, `user_premium`, `user_active`, `user_datecreated`) 
                     VALUES 
-                (NULL, ".(empty($fullname)?"NULL":"'$fullname'").", '$email', '$password', '0', '1', current_timestamp());"))
+                ('$uid', ".(empty($fullname)?"NULL":"'$fullname'").", '$email', '$password', '0', '1', current_timestamp());"))
         { 
             $response['code'] = 200;
-            $response['message'] = "ok";     
+            $response['message'] = "ok";
+            $response['user_id']= $uid;     
         }else{
             $response['code'] = 404;
             $response['message'] = "Account not created.";   
