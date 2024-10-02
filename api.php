@@ -6,6 +6,8 @@ $namer->action = "action";
 $namer->getLogin = "guest-login"; 
 $namer->token = "cors_token";
 $namer->getSignup = "2bu4tywnr7";
+$namer->userProfile = "nw95yiuw6iu";
+$namer->e="wme68-uyd9-89n8ar-fy-fh-j";
 
 class h {
     static function encodeStr($v) {
@@ -55,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 if ($good2go) {
     // Check for the 'action' key and process it if it exists
     if ($pI[$namer->action] === $namer->getLogin) {
-        $email = isset($pI['login_email']) ? trim(db::real_escape_string(h::decodeStr($pI['login_email']))) : '';
+        $email = isset($pI['login_email']) ? trim(db::real_escape_string(h::decodeStr($pI['login_email']))) : $namer->e;
         $password = isset($pI['login_password']) ? h::passwordHash(h::decodeStr($pI['login_password'])) : rand();
  
         $user_stmt=db::stmt("SELECT * FROM `users` WHERE `user_email` = '$email' AND `user_password` = '$password'");
@@ -68,14 +70,14 @@ if ($good2go) {
             $response["user_id"] = $user_fetch_assoc['user_id'] ;     
         }else{
             $response['code'] = 404;
-            $response['message'] =  "Incorrect user name or Password.";   
+            $response['message'] =  "Wrong username or password.";   
         }
     }
     else if($pI[$namer->action] === $namer->getSignup){
         $uid= h::generateAlphanumeric(20);
-        $email = isset($pI['email']) ? trim(db::real_escape_string(h::decodeStr($pI['email']))) : '';
+        $email = isset($pI['email']) ? trim(db::real_escape_string(h::decodeStr($pI['email']))) : $namer->e;
         $password = isset($pI['password']) ? h::passwordHash(h::decodeStr($pI['password'])) : rand();
-        $fullname = isset($pI['fullname']) ? trim(db::real_escape_string(h::decodeStr($pI['fullname']))) : ''; 
+        $fullname = isset($pI['fullname']) ? trim(db::real_escape_string(h::decodeStr($pI['fullname']))) : $namer->e; 
 
         if(db::stmt("INSERT INTO `users` 
                 (`user_id`, `user_fullname`, `user_email`, `user_password`, `user_premium`, `user_active`, `user_datecreated`) 
@@ -90,7 +92,34 @@ if ($good2go) {
             $response['message'] = "Account not created.";   
         }
     
+    }else if($pI[$namer->action] === $namer->userProfile){ 
+        $get_userId = isset($pI['user_id']) ? trim(db::real_escape_string(h::decodeStr($pI['user_id']))) :$namer->e; 
+        $userGetInfo=db::stmt("SELECT * FROM `users` WHERE `user_id`='$get_userId';");
+ 
+        if(mysqli_num_rows($userGetInfo) == 1)
+        { 
+            $userGetInfo_fetchAssoc=mysqli_fetch_assoc($userGetInfo);
+            $response['code'] = 200;
+            $response['message'] = "ok";
+            $response['user_info']= $userGetInfo_fetchAssoc;     
+        }else{
+            $response['code'] = 404;
+            $response['message'] = "No user found.";   
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+    //else
+    //else
     else {
         $response['code'] = 400;
         $response['message'] =  " Invalid action! " ;
